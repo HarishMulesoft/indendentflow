@@ -26,6 +26,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<set-variable value="#[message.attributes.queryParams.num1 as Number default '0']" doc:name="n1" doc:id="f172d5a9-49d8-4a5a-ae4e-01065d442f26" variableName="n1_var"/>
 		<set-variable value="#[message.attributes.queryParams.num2 as Number default '0']" doc:name="n2" doc:id="788ba222-86f1-4597-b7ba-b57fa690c860" variableName="n2_var"/>
 		<set-variable value="#[((vars.n1_var default '0') * (vars.n2_var default '0')) as Number default '0']" doc:name="mul" doc:id="87b86c5a-6746-475f-acca-cd751429fea3" variableName="mul"/>
-		<set-payload value="#['multiplication of 2 numbers' ++ vars.n1_var ++ ' and ' ++ vars.n2_var ++ 'is' ++ vars.mul]" doc:name="Set Payload" doc:id="7f508bd9-21fd-4d22-a7c3-43481c8806e0" />
+		<set-payload value="#['multiply of 2 numbers' ++ vars.n1_var ++ ' and ' ++ vars.n2_var ++ 'is' ++ vars.mul]" doc:name="Set Payload" doc:id="7f508bd9-21fd-4d22-a7c3-43481c8806e0" />
 	</flow>
 </mule>
