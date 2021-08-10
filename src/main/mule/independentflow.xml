@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="065753a9-0c27-450a-b5d2-8fd1cdb0eca5" basePath="/arithmatic">
+		<http:listener-connection host="localhost" port="9001" />
+	</http:listener-config>
+	<flow name="ADDFlow" doc:id="d1a2841e-b416-488a-a48d-3f44da7d75c5" >
+		<http:listener doc:name="Listener" doc:id="8e2b0556-1821-48da-8fb0-42efa224e1f3" path="/add" config-ref="HTTP_Listener_config"/>
+		<set-variable value="#[message.attributes.queryParams.num1 as Number default '0']" doc:name="n1" doc:id="5943339e-6d29-4657-a63a-b2757004138d" variableName="n1_var"/>
+		<set-variable value="#[message.attributes.queryParams.num2 as Number default '0']" doc:name="n2" doc:id="f7edf0c1-bae3-4597-9b01-0038e8d17e73" variableName="n2_var"/>
+		<set-variable value="#[(vars.n1_var + vars.n2_var) as Number default '0']" doc:name="result" doc:id="f3525985-fb25-48dc-883c-767dea15a8b8" variableName="result"/>
+		<set-payload value="#['addition of 2 numbers ' ++ (vars.n1_var ) ++ ' and ' ++ vars.n2_var ++ ' is ' ++ vars.result]" doc:name="Set Payload" doc:id="38c0fa6f-6067-4052-a797-081665909a5e" />
+	</flow>
+	<flow name="SUBFlow1" doc:id="e1352c2c-be52-4336-8d8c-649d59743107" >
+		<http:listener doc:name="Listener" doc:id="d2c45edf-fde4-41d8-84ca-38cf856cc86e" config-ref="HTTP_Listener_config" path="/sub"/>
+		<set-variable value="#[message.attributes.queryParams.num1 default '0']" doc:name="n1" doc:id="4bf3778d-ef5a-4a09-8fa3-3df89801aa45" variableName="n1_var"/>
+		<set-variable value="#[message.attributes.queryParams.num2 default '0']" doc:name="n2" doc:id="32260e23-e1e6-4f4f-b320-e2c63b4a6d1a" variableName="n2_var"/>
+		<set-variable value="#[((vars.n1_var default '0') - (vars.n2_var default '0')) as Number default '0']" doc:name="res" doc:id="c675aef8-2a10-4e23-8497-3eda96448626" variableName="res"/>
+		<set-payload value="#['subtraction of 2 numbers' ++ vars.n1_var ++ ' and '++ vars.n2_var ++ ' is ' ++ vars.res]" doc:name="Set Payload" doc:id="084ac91a-9960-47f7-81f7-014307c2d161" />
+	</flow>
+	<flow name="MULFlow2" doc:id="8f9aa830-785b-4bc1-b566-f2acb6979f01" >
+		<http:listener doc:name="Listener" doc:id="a2f71344-de56-44d6-9aa3-0ebc3b6cd8ea" config-ref="HTTP_Listener_config" path="/mul"/>
+		<set-variable value="#[message.attributes.queryParams.num1 as Number default '0']" doc:name="n1" doc:id="f172d5a9-49d8-4a5a-ae4e-01065d442f26" variableName="n1_var"/>
+		<set-variable value="#[message.attributes.queryParams.num2 as Number default '0']" doc:name="n2" doc:id="788ba222-86f1-4597-b7ba-b57fa690c860" variableName="n2_var"/>
+		<set-variable value="#[((vars.n1_var default '0') * (vars.n2_var default '0')) as Number default '0']" doc:name="mul" doc:id="87b86c5a-6746-475f-acca-cd751429fea3" variableName="mul"/>
+		<set-payload value="#['multiplication of 2 numbers' ++ vars.n1_var ++ ' and ' ++ vars.n2_var ++ 'is' ++ vars.mul]" doc:name="Set Payload" doc:id="7f508bd9-21fd-4d22-a7c3-43481c8806e0" />
+	</flow>
+</mule>
